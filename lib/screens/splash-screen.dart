@@ -1,9 +1,11 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 //screens
-import 'package:project/screens/login.dart';
+import 'package:project/screens/auth/login.dart';
 
+// ignore: must_be_immutable
 class Index extends StatefulWidget {
   Index({Key? key}) : super(key: key);
   static const routeName = "/";
@@ -15,44 +17,50 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     startRedirectLogin();
   }
+
   startRedirectLogin() async {
-    var duration = const Duration(seconds: 5);
+    var duration = const Duration(seconds: 1);
     return Timer(duration, route);
   }
-  route(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+
+  route() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const Login()));
+    // Navigator.pushReplacementNamed(context, BottomNavigationBarC.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/logo.jpg'),
             const Padding(padding: EdgeInsets.only(top: 20)),
-            const Text('Welcome . . .',
+            const Text(
+              'Welcome!',
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.white
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF0B5EA7),
               ),
             ),
-            const Padding(padding: EdgeInsets.only(top:20)),
-            const CircularProgressIndicator(
-              backgroundColor: Colors.white,
-              strokeWidth: 2,
-            )
-            
+            const Padding(padding: EdgeInsets.only(top: 20)),
+            // const CircularProgressIndicator(
+            const SizedBox(
+                width: 140,
+                child: LinearProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B5EA7)),
+                )),
           ],
         ),
       ),
     );
   }
-
 }
