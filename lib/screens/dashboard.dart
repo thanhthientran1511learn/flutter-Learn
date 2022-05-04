@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/entities/student.dart';
 import 'package:http/http.dart' as http;
+import 'package:project/screens/editStudent.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Dashboard extends StatefulWidget {
@@ -12,10 +13,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   String data = '';
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -35,6 +32,13 @@ class _DashboardState extends State<Dashboard> {
       print(err);
       rethrow;
     }
+  }
+
+  
+  @override
+  void initState() {
+    super.initState();
+    getAllStudent();
   }
 
   @override
@@ -96,8 +100,8 @@ class ListEmployee extends StatefulWidget {
 
 class _ListEmployeeState extends State<ListEmployee> {
   funcEditUser(Student user) {
-    // return Navigator.of(context)
-    //    .pushNamed(EditUserScreen.routeName, arguments: user);
+    return Navigator.of(context)
+       .pushNamed(EditStudent.routeName, arguments: user);
 
     // Ở đây Navigator qua page EditUser nhé - Mẫu ở trên kìa
   }
@@ -149,13 +153,17 @@ class _ListEmployeeState extends State<ListEmployee> {
     }
   }
 
+  onGoBack(dynamic value) {
+    widget.reloadPage();
+  }
+
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onLongPress: () {
             // edit value
-            funcEditUser(widget.students[index]);
+            funcEditUser(widget.students[index]).then(onGoBack);
           },
           child: ListTile(
             title: Text(widget.students[index].firstName.toString()
@@ -171,15 +179,18 @@ class _ListEmployeeState extends State<ListEmployee> {
               // icon: const Icon(Icons.phone),
               icon: widget.students[index].phone.toString() != 'null'
                   ? const Icon(Icons.phone)
-                  : const Icon(Icons.mail),
+                  : widget.students[index].mail.toString() != 'null' ? const Icon(Icons.mail) : const Icon(Icons.clear),
               label: widget.students[index].phone.toString() != 'null'
                   ? const Text("Call")
-                  : const Text('Mail'),
+                  : widget.students[index].mail.toString() != 'null' ? const Text('Mail') : const Text(''),
               onPressed: () {
-                if (widget.students[index].phone.toString() == 'null') {
-                  makePhoneCall(widget.students[index].mail.toString());
-                } else {
+                if (widget.students[index].phone.toString() != 'null') {
                   makePhoneCall(widget.students[index].phone.toString());
+                } else if(widget.students[index].mail.toString() != 'null') {
+                  makePhoneCall(widget.students[index].mail.toString());
+                }
+                else{
+                  //do no thing
                 }
               },
             ),

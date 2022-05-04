@@ -127,7 +127,7 @@ class _RegisterState extends State<Register> {
             ),
 //* input fulName & Email
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[

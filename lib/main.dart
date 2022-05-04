@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/auth/register.dart';
+import 'package:project/screens/editStudent.dart';
 //screens 
 import 'components/bottomnavigationbar.dart';
 import 'screens/splash-screen.dart';
@@ -16,6 +17,7 @@ void main() {
       BottomNavigationBarC.routeName: (ctx) => BottomNavigationBarC(),
       Login.routeName : (ctx) => const Login(),
       Register.routeName : (ctx) => const Register(),
+      EditStudent.routeName : (ctx) => EditStudent(),
     },
   ));
 }

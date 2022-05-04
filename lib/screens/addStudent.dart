@@ -25,6 +25,17 @@ class _InforState extends State<AddStudent> {
   void initState() {
     super.initState();
   }
+  
+  //cleanInput
+    cleanText() {
+      firstName.clear();
+      lastName.clear();
+      address.clear();
+      course.clear();
+      phone.clear();
+      mail.clear();
+      status.clear();
+    }
 
   funcSave() async {
     //fields
@@ -36,21 +47,11 @@ class _InforState extends State<AddStudent> {
     final strMail = mail.text;
     final strStatus = status.text;
 
-    //cleanInput
-    cleanText() {
-      firstName.text = '';
-      lastName.text = '';
-      address.text = '';
-      course.text = '';
-      phone.text = '';
-      mail.text = '';
-      status.text = '';
-    }
 
-    if (strFirstName != '' ||
-        strLastName != '' ||
-        strAddress != '' ||
-        strCourse != '' ||
+    if (strFirstName != '' &&
+        strLastName != '' &&
+        strAddress != '' &&
+        strCourse != '' &&
         strStatus != '') {
       var url;
       if (strPhone != '' || strMail != '') {
