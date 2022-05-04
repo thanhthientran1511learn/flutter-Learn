@@ -20,7 +20,7 @@ class _EditStudentState extends State<EditStudent> {
   final strStatus = TextEditingController();
   final strId = TextEditingController();
 
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   late DBHelper dbHelper;
   late Student student;
 

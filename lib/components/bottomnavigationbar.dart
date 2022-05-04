@@ -33,7 +33,7 @@ class _BottomNavigationBarCState extends State<BottomNavigationBarC> {
       case 2:
         return const AddStudent();
       case 3:
-        return Logout();
+        return const Logout();
     }
   }
 
