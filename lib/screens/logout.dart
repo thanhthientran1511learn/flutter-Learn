@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/auth/login.dart';
-import 'package:project/screens/home.dart';
+// import 'package:project/screens/home.dart';
 
-import '../components/bottomnavigationbar.dart';
+// import '../components/bottomnavigationbar.dart';
 //screens
 
 //. . .
 
 class Logout extends StatefulWidget {
+  const Logout({Key? key}) : super(key: key);
   @override
   _LogoutState createState() => _LogoutState();
 }
@@ -35,7 +36,7 @@ class _LogoutState extends State<Logout> {
         const Padding(
           padding: EdgeInsets.fromLTRB(0,0,0,50),
           child: Text(
-            'Are you sure logout?',
+            'Bạn chắc chắn muốn thoát chứ?',
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.orange,
@@ -55,7 +56,7 @@ class _LogoutState extends State<Logout> {
                     onSurface: Colors.grey,
                     minimumSize: const Size(50, 40),
                     ),
-                label: const Text('YES'),
+                label: const Text('Có'),
                 icon: const Icon(Icons.check),
                 onPressed: () {
                   Navigator.pushReplacement(context,
@@ -71,7 +72,7 @@ class _LogoutState extends State<Logout> {
                   onSurface: Colors.grey,
                   minimumSize: const Size(50, 40)
                 ),
-                label: const Text('NO'),
+                label: const Text('Không'),
                 icon: const Icon(Icons.cancel_outlined),
                 onPressed: () {
                   

@@ -131,7 +131,7 @@ class _ListEmployeeState extends State<ListEmployee> {
   handleDeleteUser(int userId) async {
     try {
       var url = Uri.parse(
-          'http://api.phanmemquocbao.com/api/info/DeleteAccount?accountId=$userId&token=lethibaotran');
+          'http://api.phanmemquocbao.com/api/Doituong/deleteObject?id=$userId&tokende=lethibaotran');
       await http.get(url);
     } catch (err) {
       print(err);
@@ -158,19 +158,29 @@ class _ListEmployeeState extends State<ListEmployee> {
             funcEditUser(widget.students[index]);
           },
           child: ListTile(
-            title: Text(widget.students[index].firstName.toString() +
-                " - " +
-                widget.students[index].lastName.toString()),
+            title: Text(widget.students[index].firstName.toString()
+                // + " - " +
+                // widget.students[index].lastName.toString()
+                ),
             subtitle: Text(widget.students[index].address.toString()),
             leading: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
                 onPrimary: Colors.white,
               ),
-              icon: const Icon(Icons.phone),
-              label: const Text("Call"),
+              // icon: const Icon(Icons.phone),
+              icon: widget.students[index].phone.toString() != 'null'
+                  ? const Icon(Icons.phone)
+                  : const Icon(Icons.mail),
+              label: widget.students[index].phone.toString() != 'null'
+                  ? const Text("Call")
+                  : const Text('Mail'),
               onPressed: () {
-                makePhoneCall(widget.students[index].mail.toString());
+                if (widget.students[index].phone.toString() == 'null') {
+                  makePhoneCall(widget.students[index].mail.toString());
+                } else {
+                  makePhoneCall(widget.students[index].phone.toString());
+                }
               },
             ),
             trailing: ElevatedButton(

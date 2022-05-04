@@ -1,11 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:project/screens/infor.dart';
+// import 'package:project/screens/infor.dart';
 
 //screens
 import '../screens/dashboard.dart';
 import '../screens/home.dart';
-import '../screens/auth/login.dart';
+import '../screens/addStudent.dart';
 import '../screens/logout.dart';
 // . . .
 
@@ -31,7 +31,7 @@ class _BottomNavigationBarCState extends State<BottomNavigationBarC> {
       case 1:
         return const Dashboard();
       case 2:
-        return const Infor();
+        return const AddStudent();
       case 3:
         return Logout();
     }
