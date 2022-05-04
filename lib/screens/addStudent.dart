@@ -131,9 +131,11 @@ class _InforState extends State<AddStudent> {
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.w500,
-                  fontSize: 30,
+                  fontSize: 30,                  
                 ),
+                textAlign: TextAlign.center,
               ),
+              
             ),
             Container(
               padding: const EdgeInsets.all(10),
@@ -195,7 +197,7 @@ class _InforState extends State<AddStudent> {
 //* button
             Center(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 32, 0, 32),
                 child: SizedBox(
                   width: 200,
                   height: 41,

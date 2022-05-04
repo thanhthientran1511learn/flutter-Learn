@@ -23,13 +23,16 @@ class _MeState extends State<Me> {
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: <Widget>[
-              // SizedBox(
-              //   width: 100,
-              //   height: 150,
-              //   child: Image.asset(
-              //     'assets/logoqb.jpg',
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: SizedBox(
+                  width: 160,
+                  height: 200,
+                  child: Image.asset(
+                    'assets/img1.webp',
+                  ),
+                ),
+              ),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -46,7 +49,19 @@ class _MeState extends State<Me> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
                 child: const Text(
-                  'Trần Thiện Thanh - 18DH110724',
+                  'Trần Thiện Thanh',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 57, 33, 1),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: const Text(
+                  '18DH110724',
                   style: TextStyle(
                     color: Color.fromARGB(255, 57, 33, 1),
                     fontWeight: FontWeight.w500,

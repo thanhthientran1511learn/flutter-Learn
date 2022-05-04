@@ -60,8 +60,9 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                               color: Colors.orange,
                               fontSize: 50,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,                              
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ))))));
   }
