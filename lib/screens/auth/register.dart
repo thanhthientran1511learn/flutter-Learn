@@ -97,8 +97,12 @@ class _RegisterState extends State<Register> {
       // appBar: AppBar(
       //   title: const Text('Register'),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: SafeArea(
+        // padding: const EdgeInsets.all(10),
+        top: true,
+        bottom: true,
+        left: false,
+        right: true,
         child: ListView(
           // ignore: duplicate_ignore
           children: <Widget>[

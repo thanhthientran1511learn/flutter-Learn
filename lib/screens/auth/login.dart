@@ -101,8 +101,12 @@ class _LoginState extends State<Login> {
       // appBar: AppBar(
       //   title: const Text('Login'),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: SafeArea(
+        // padding: const EdgeInsets.all(10),
+        top: true,
+        bottom: true,
+        left: false,
+        right: true,
         child: ListView(
           children: <Widget>[
 //*logo

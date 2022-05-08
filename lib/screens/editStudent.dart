@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project/screens/dashboard.dart';
+// import 'package:project/screens/dashboard.dart';
 import 'package:project/utils/dbhelper.dart';
 import 'package:project/entities/student.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class EditStudent extends StatefulWidget {
   static const routeName = '/edit';
@@ -121,33 +122,96 @@ class _EditStudentState extends State<EditStudent> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Cập nhật thông tin'),
+        title: const Text('Thông tin sv'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: SafeArea(
+        top: true,
+        bottom: true,
+        left: false,
+        right: true,
+        // padding: const EdgeInsets.all(10),
         child: ListView(
           children: <Widget>[
-            // SizedBox(
-            //   width: 100,
-            //   height: 150,
-            //   child: Image.asset(
-            //     'assets/logoqb.jpg',
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 10,
+              ),
+            ),
+            CircleAvatar(
+              // child: Text(widget.students[index].firstName.toString()[0]),
+              radius: 50,
+              child: Text(getName(strFirstName.text)),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                bottom: 30,
+              ),
+            ),
+            // Container(
+            //   alignment: Alignment.center,
+            //   padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+            //   child: const Text(
+            //     'Thông tin sinh viên',
+            //     style: TextStyle(
+            //       color: Colors.blue,
+            //       fontWeight: FontWeight.w500,
+            //       fontSize: 30,
+            //     ),
             //   ),
             // ),
             Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-              child: const Text(
-                'Thông tin sinh viên',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 30,
-                ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red.shade300,
+                        onPrimary: Colors.white,
+                      ),
+                      // icon: const Icon(Icons.phone),
+                      icon: strMail.text != 'null'
+                          ? const Icon(Icons.mail)
+                          : const Icon(Icons.clear),
+                      label: strMail.text != 'null'
+                          ? const Text('Mail')
+                          : const Text(''),
+                      onPressed: () {
+                        if (strMail.text != '') {
+                          // ignore: deprecated_member_use
+                          launch('mailto: ${strMail.text}');
+                        } else {
+                          exceptionLaunch('địa chỉ Mail');
+                        }
+                      },
+                    ),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        onPrimary: Colors.white,
+                      ),
+                      // icon: const Icon(Icons.phone),
+                      icon: strPhone.text != 'null'
+                          ? const Icon(Icons.phone)
+                          : const Icon(Icons.clear),
+                      label: strPhone.text != 'null'
+                          ? const Text("Call")
+                          : const Text(''),
+                      onPressed: () {
+                        if (strPhone.text != '') {
+                          // ignore: deprecated_member_use
+                          launch('tel: ${strPhone.text}');
+                        } else {
+                          exceptionLaunch('số điện thoại');
+                        }
+                      },
+                    ),
+                  ],
+                )),
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -208,31 +272,126 @@ class _EditStudentState extends State<EditStudent> {
               child: TextField(
                 controller: strStatus,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Status*'),
+                    border: OutlineInputBorder(), labelText: 'Tình trạng*'),
               ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                child: SizedBox(
-                  width: 200,
-                  height: 41,
-                  child: ElevatedButton(
-                    child: const Text('Save',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    onPressed: () {
-                      funcSave();
-                    },
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 50),
+                      child: SizedBox(
+                        width: 150,
+                        height: 41,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            onPrimary: Colors.black,
+                            onSurface: Colors.grey,
+                          ),
+                          child: const Text('Xoá',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              )),
+                          onPressed: () {
+                            handelRequiredDelete(strId.text);
+                          },
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 50),
+                      child: SizedBox(
+                        width: 150,
+                        height: 41,
+                        child: ElevatedButton(
+                          child: const Text('Cập nhật',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          onPressed: () {
+                            funcSave();
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
           ],
         ),
       ),
     );
+  }
+
+  getName(String str) {
+    List<String> result = str.split(" ");
+    if (result.length > 1) {
+      return result[1].toUpperCase();
+    } else {
+      return result[0].toUpperCase();
+    }
+  }
+
+  exceptionLaunch(String str) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Thông báo'),
+            content: Text('Chưa lưu ' + str + ' !'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
+  }
+
+  handelRequiredDelete(String userId) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Xoá'),
+            content: const Text('Chắc chắn xoá ?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  handleDeleteUser(userId);
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Có'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Không'),
+              ),
+            ],
+          );
+        });
+  }
+
+  handleDeleteUser(String userId) async {
+    try {
+      var url = Uri.parse(
+          'http://api.phanmemquocbao.com/api/Doituong/deleteObject?id=$userId&tokende=lethibaotran');
+      await http.get(url);
+      return Navigator.of(context).pop();
+    } catch (err) {
+      print(err);
+    }
   }
 }

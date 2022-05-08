@@ -16,12 +16,11 @@ class BottomNavigationBarC extends StatefulWidget {
 }
 
 class _BottomNavigationBarCState extends State<BottomNavigationBarC> {
-  
   late int index;
   @override
   void initState() {
     super.initState();
-    index = 0;
+      index = 0;
   }
 
   bodyWidget(int pos) {

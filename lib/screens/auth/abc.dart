@@ -3,7 +3,6 @@ import 'package:project/entities/student.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/screens/editStudent.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:contacts_service/contacts_service.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -13,6 +12,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   String data = '';
+
 
   @override
   void didChangeDependencies() {
@@ -34,6 +34,7 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  
   @override
   void initState() {
     super.initState();
@@ -47,15 +48,6 @@ class _DashboardState extends State<Dashboard> {
         title: const Text('Danh sách SV'),
       ),
       body: Center(
-        // child: Column(
-        //     mainAxisSize: MainAxisSize.max,
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: <Widget>[
-        //       Container(
-
-        //       ),
-        //     ],
-        //   ),
         child: buildFutrueBuilderAssets(context),
       ),
     );
@@ -109,7 +101,7 @@ class ListEmployee extends StatefulWidget {
 class _ListEmployeeState extends State<ListEmployee> {
   funcEditUser(Student user) {
     return Navigator.of(context)
-        .pushNamed(EditStudent.routeName, arguments: user);
+       .pushNamed(EditStudent.routeName, arguments: user);
 
     // Ở đây Navigator qua page EditUser nhé - Mẫu ở trên kìa
   }
@@ -165,42 +157,59 @@ class _ListEmployeeState extends State<ListEmployee> {
     widget.reloadPage();
   }
 
-  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
-          // onLongPress: () {
-          //   // edit value
-          //   funcEditUser(widget.students[index]).then(onGoBack);
-          // },
-          onTap: ()=> funcEditUser(widget.students[index]).then(onGoBack),
+          onLongPress: () {
+            // edit value
+            funcEditUser(widget.students[index]).then(onGoBack);
+          },
           child: ListTile(
-              title: Text(widget.students[index].firstName.toString()
-                  // + " - " +
-                  // widget.students[index].lastName.toString()
-                  ),
-              subtitle: Text(widget.students[index].address.toString()),
-              leading: (CircleAvatar(
-                // child: Text(widget.students[index].firstName.toString()[0]),
-                child: Text(
-                    getName(widget.students[index].firstName.toString())[0]),
-              ))),
+            title: Text(widget.students[index].firstName.toString()
+                // + " - " +
+                // widget.students[index].lastName.toString()
+                ),
+            subtitle: Text(widget.students[index].address.toString()),
+            leading: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                onPrimary: Colors.white,
+              ),
+              // icon: const Icon(Icons.phone),
+              icon: widget.students[index].phone.toString() != 'null'
+                  ? const Icon(Icons.phone)
+                  : widget.students[index].mail.toString() != 'null' ? const Icon(Icons.mail) : const Icon(Icons.clear),
+              label: widget.students[index].phone.toString() != 'null'
+                  ? const Text("Call")
+                  : widget.students[index].mail.toString() != 'null' ? const Text('Mail') : const Text(''),
+              onPressed: () {
+                if (widget.students[index].phone.toString() != 'null') {
+                  makePhoneCall(widget.students[index].phone.toString());
+                } else if(widget.students[index].mail.toString() != 'null') {
+                  makePhoneCall(widget.students[index].mail.toString());
+                }
+                else{
+                  //do no thing
+                }
+              },
+            ),
+            trailing: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.red,
+                onPrimary: Colors.white,
+              ),
+              child: const Text('Delete'),
+              onPressed: () => handelRequiredDelete(widget.students[index].id),
+            ),
+          ),
         );
       },
       itemCount: widget.students == null ? 0 : widget.students.length,
     );
   }
 
-  getName(String str) {
-    List<String> result = str.split(" ");
-    if (result.length > 1) {
-      return result[1].toUpperCase();
-    }
-    else {
-      return result[0].toUpperCase();
-    }
-  }
+  
 }
 
 class CircularProgressIndicatorPage extends StatelessWidget {

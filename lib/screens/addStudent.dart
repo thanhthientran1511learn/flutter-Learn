@@ -25,17 +25,17 @@ class _InforState extends State<AddStudent> {
   void initState() {
     super.initState();
   }
-  
+
   //cleanInput
-    cleanText() {
-      firstName.clear();
-      lastName.clear();
-      address.clear();
-      course.clear();
-      phone.clear();
-      mail.clear();
-      status.clear();
-    }
+  cleanText() {
+    firstName.clear();
+    lastName.clear();
+    address.clear();
+    course.clear();
+    phone.clear();
+    mail.clear();
+    status.clear();
+  }
 
   funcSave() async {
     //fields
@@ -46,7 +46,6 @@ class _InforState extends State<AddStudent> {
     final strPhone = phone.text;
     final strMail = mail.text;
     final strStatus = status.text;
-
 
     if (strFirstName != '' &&
         strLastName != '' &&
@@ -108,8 +107,12 @@ class _InforState extends State<AddStudent> {
       // appBar: AppBar(
       //   title: const Text('Information Student'),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: SafeArea(
+        // padding: const EdgeInsets.all(10),
+        top: true,
+        bottom: true,
+        left: false,
+        right: true,
         child: ListView(
           children: <Widget>[
 // // * logo
@@ -131,26 +134,34 @@ class _InforState extends State<AddStudent> {
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.w500,
-                  fontSize: 30,                  
+                  fontSize: 30,
                 ),
                 textAlign: TextAlign.center,
               ),
-              
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: lastName,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Họ*'),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: firstName,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Tên*'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                        controller: lastName,
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            border: OutlineInputBorder(),
+                            labelText: 'Họ*')),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: TextField(
+                        controller: firstName,
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            border: OutlineInputBorder(),
+                            labelText: 'Tên*')),
+                  ),
+                ],
               ),
             ),
             Container(
@@ -190,7 +201,7 @@ class _InforState extends State<AddStudent> {
               child: TextField(
                 controller: status,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Status*'),
+                    border: OutlineInputBorder(), labelText: 'Tình trạng*'),
               ),
             ),
 
@@ -202,7 +213,7 @@ class _InforState extends State<AddStudent> {
                   width: 200,
                   height: 41,
                   child: ElevatedButton(
-                    child: const Text('Save',
+                    child: const Text('Lưu',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
