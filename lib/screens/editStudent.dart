@@ -88,9 +88,9 @@ class _EditStudentState extends State<EditStudent> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    // return Navigator.of(context).pop();
-                    Navigator.pop(context);
-                    return back();
+                    return Navigator.pop(context);
+                    // Navigator.pop(context);
+                    // return back();
                   },
                   child: const Text('OK'),
                 ),
@@ -178,12 +178,29 @@ class _EditStudentState extends State<EditStudent> {
                       label: strMail.text != 'null'
                           ? const Text('Mail')
                           : const Text(''),
-                      onPressed: () {
+                      onPressed: () async {
                         if (strMail.text != '') {
                           // ignore: deprecated_member_use
-                          launch('mailto: ${strMail.text}');
+                          await launch('mailto: ${strMail.text}');
                         } else {
                           exceptionLaunch('địa chỉ Mail');
+                        }
+                      },
+                    ),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.lightBlueAccent,
+                        onPrimary: Colors.white,
+                      ),
+                      // icon: const Icon(Icons.phone),
+                      icon: const Icon(Icons.navigation),
+                      label: const Text("Địa chỉ"),
+                      onPressed: () async {
+                        if (strAddress.text != '') {
+                          // ignore: deprecated_member_use
+                          await launch('https://www.google.com/maps/search/${strAddress.text}');
+                        } else {
+                          exceptionLaunch('địa chỉ');
                         }
                       },
                     ),
@@ -199,10 +216,10 @@ class _EditStudentState extends State<EditStudent> {
                       label: strPhone.text != 'null'
                           ? const Text("Call")
                           : const Text(''),
-                      onPressed: () {
+                      onPressed: () async {
                         if (strPhone.text != '') {
                           // ignore: deprecated_member_use
-                          launch('tel: ${strPhone.text}');
+                          await launch('tel: ${strPhone.text}');
                         } else {
                           exceptionLaunch('số điện thoại');
                         }
