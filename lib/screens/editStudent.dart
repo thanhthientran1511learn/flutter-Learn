@@ -193,7 +193,7 @@ class _EditStudentState extends State<EditStudent> {
                         onPrimary: Colors.white,
                       ),
                       // icon: const Icon(Icons.phone),
-                      icon: const Icon(Icons.navigation),
+                      icon: const Icon(Icons.location_on_outlined),
                       label: const Text("Địa chỉ"),
                       onPressed: () async {
                         if (strAddress.text != '') {
